@@ -8,7 +8,6 @@ import Nav from "./assets/Nav";
 import SignupForm from "./SignupForm";
 import Profile from "./Profile";
 import Sidebar from "./Sidebar";
-import Test from "./Test";
 
 
 function App() {
@@ -17,7 +16,6 @@ function App() {
       <Sidebar />
       <Nav />
       <Routes>
-        <Route path="/test" element={<Test />} />
         <Route path="/community" element={<Community />} />
         <Route path="/" element={<Post />} />
         <Route path="/:id" element={<PostDetail />} />
