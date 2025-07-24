@@ -51,10 +51,10 @@ export default function Search(){
                 type="text"
                 value={query}
                 onChange={(e) =>Setquery(e.target.value)} 
-                className="border rounded-2xl w-100 h-10 pl-1 hover:ring-purple-600 hover:ring-2 duration-300 font-mono border-purple-950 text-white"></input>
+                className="border rounded-2xl w-100 h-10 pl-1 hover:ring-white hover:ring-2 duration-300 font-mono border-white text-white"></input>
         
             {showDropDown && users.length>0 &&(
-                <ul className="absolute bg-purple-400 border border-purple-600 text-black w-full mt-1 rounded-2xl shadow-lg max-h-60 overflow-y-auto ">
+                <ul className="absolute bg-purple-400 border border-white text-white w-full mt-1 rounded-2xl shadow-lg max-h-60 overflow-y-auto ">
                     {users.map((user) =>(
                         <li key={user.id}
                             onClick={() => handleSelectUser(user.username)}

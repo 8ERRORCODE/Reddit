@@ -33,7 +33,14 @@ function Nav() {
       })
   },[isAuthenticated]);
   return (
-    <nav className="bg-purple-400 flex justify-between items-center px-4 py-2 border-b-3 border-orange-300">
+    <nav
+    className="flex justify-between items-center px-4 py-4 border-b-2 border-blue-300 fixed top-0 left-0 w-full z-50"
+    style={{
+      backgroundColor: 'rgba(42, 10, 70, 0.6)',
+      backdropFilter: 'blur(7px)',
+      WebkitBackdropFilter: 'blur(8px)',
+    }}
+  >
       
       <Link to="/" className="flex items-center space-x-3">
         <img src={Logo} alt="Logo" className="rounded-full h-16 w-auto" />

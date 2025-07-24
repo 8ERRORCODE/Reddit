@@ -40,7 +40,7 @@ function Post() {
   };
   return (
     
-    <div className="min-h-screen bg-zinc-900 text-white px-4 py-6">
+    <div className="min-h-screen text-white px-4 py-15">
       <div className="max-w-2xl mx-auto">
         <ul className="space-y-4">
           {posts.map((p) => (

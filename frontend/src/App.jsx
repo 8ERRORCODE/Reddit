@@ -12,9 +12,11 @@ import Sidebar from "./Sidebar";
 
 function App() {
   return (
+   
     <Router >
       <Sidebar />
       <Nav />
+      <div className="min-h-screen bg-[#1c1e2a] text-white pt-20">
       <Routes>
         <Route path="/community" element={<Community />} />
         <Route path="/" element={<Post />} />
@@ -23,8 +25,11 @@ function App() {
         <Route path="/register" element={<SignupForm />} />
         <Route path="/profile/:username" element={<Profile />} />
       </Routes>
+      </div>
     </Router>
+    
   );
+  
 }
 
 export default App;
