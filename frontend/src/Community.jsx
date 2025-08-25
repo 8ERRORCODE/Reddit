@@ -18,20 +18,24 @@ function Community(){
   }
   console.log(communities)
   return(
-    <div className="min-h-screen bg-zinc-900 text-white px-4 py-6">
+    <div className="min-h-screen bg-[#1c1e2a] text-white px-4 py-6">
       <div className="max-w-2xl mx-auto">
         <ul className="space-y-4">
           {communities.map(c =>(
-            <li key={c.id} className="bg-zinc-800 p-4 rounded-lg shadow hover:bg-zinc-700 transition duration-[0.25s]">
+            <li key={c.id} className="bg-[#2a2e4a61] p-4 rounded-lg shadow hover:bg-[#2a2e4ad0] transition duration-[0.25s]">
               {c.name}
             </li>
           ))}
         </ul>
-        <input value={name} placeholder="input Community Name..." className="w-full bg-zinc-700 p-2 rounded mb-3 text-white placeholder-gray-400"
-        onChange={e => SetName(e.target.value)}/>
-        <button onClick={CreateCommunities} className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white font-semibold">
-          create Community
-          </button>        
+        <div className="mt-10 bg-[#2a2e4a61] hover:bg-[#2a2e4ad0] p-6 rounded-lg shadow">
+          <h2 className="text-xl font-bold mb-4">Create New Community</h2>
+          <input value={name} placeholder="input Community Name..."  className="w-full bg-[#1c1e2a] p-2 rounded mb-3 text-white placeholder-gray-400"
+          onChange={e => SetName(e.target.value)}/>
+          <button onClick={CreateCommunities} className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white font-semibold">
+            Submit
+            </button> 
+        </div>
+       
       </div>
 
     </div>
