@@ -3,6 +3,7 @@ import axios from "axios";
 
 // Use environment variable if available, otherwise default to localhost
 const backendHost =
+  // import.meta.env.VITE_API_URL || "http://reddit-backend-service:8000";
   import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
 const Api = axios.create({
