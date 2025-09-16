@@ -1,15 +1,15 @@
-# Backend PVC (RWO, allowed for your tenant)
+# Backend PVC 
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: reddit-backend-pvc
 spec:
   accessModes:
-    - ReadWriteOnce   # Only allowed mode
+    - ReadWriteOnce 
   resources:
     requests:
       storage: 1Gi
-  storageClassName: csi-cinder-sc-delete-az  # Allowed storage class
+  storageClassName: csi-cinder-sc-delete-az  
 
 ---
 # Backend Deployment
@@ -18,7 +18,7 @@ kind: Deployment
 metadata:
   name: reddit-backend
 spec:
-  replicas: 1  # Must stay 1 due to RWO
+  replicas: 1 
   selector:
     matchLabels:
       app: reddit-backend
@@ -49,7 +49,7 @@ spec:
             claimName: reddit-backend-pvc
 
 ---
-# Backend Service (internal)
+# Backend Service
 apiVersion: v1
 kind: Service
 metadata:
@@ -61,10 +61,10 @@ spec:
     - protocol: TCP
       port: 8000
       targetPort: 80
-  type: ClusterIP  # Internal only
+  type: ClusterIP  
 
 ---
-# Local Backend Service (for frontend to use specific pod)
+# Local Backend Service
 apiVersion: v1
 kind: Service
 metadata:
