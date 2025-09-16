@@ -1,0 +1,122 @@
+# Backend PVC (RWO, allowed for your tenant)
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: reddit-backend-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce   # Only allowed mode
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: csi-cinder-sc-delete-az  # Allowed storage class
+
+---
+# Backend Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reddit-backend
+spec:
+  replicas: 1  # Must stay 1 due to RWO
+  selector:
+    matchLabels:
+      app: reddit-backend
+  template:
+    metadata:
+      labels:
+        app: reddit-backend
+    spec:
+      containers:
+        - name: reddit-backend
+          image: 0errorcode/reddit-backend:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: sqlite-storage
+              mountPath: /app/db
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 0.5
+              memory: 1Gi
+            limits:
+              cpu: 1
+              memory: 2Gi
+      volumes:
+        - name: sqlite-storage
+          persistentVolumeClaim:
+            claimName: reddit-backend-pvc
+
+---
+# Backend Service (internal)
+apiVersion: v1
+kind: Service
+metadata:
+  name: reddit-backend-service
+spec:
+  selector:
+    app: reddit-backend
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 80
+  type: ClusterIP  # Internal only
+
+---
+# Local Backend Service (for frontend to use specific pod)
+apiVersion: v1
+kind: Service
+metadata:
+  name: reddit-backend-local-service
+spec:
+  selector:
+    app: reddit-backend-local
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+
+---
+# Frontend Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reddit-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reddit-frontend
+  template:
+    metadata:
+      labels:
+        app: reddit-frontend
+    spec:
+      containers:
+        - name: reddit-frontend
+          image: 0errorcode/reddit-frontend:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: REACT_APP_BACKEND_URL
+              value: "http://reddit-backend-local-service:80"
+          imagePullPolicy: Always
+      restartPolicy: Always
+
+---
+# Frontend Service (public)
+apiVersion: v1
+kind: Service
+metadata:
+  name: reddit-frontend-service
+spec:
+  selector:
+    app: reddit-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+ 
