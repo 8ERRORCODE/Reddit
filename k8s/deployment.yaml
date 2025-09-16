@@ -43,6 +43,9 @@ spec:
             limits:
               cpu: 1
               memory: 2Gi
+          env:
+            - name: DJANGO_ALLOWED_HOSTS
+              value: "*" 
       volumes:
         - name: sqlite-storage
           persistentVolumeClaim:
@@ -102,6 +105,7 @@ spec:
           env:
             - name: REACT_APP_BACKEND_URL
               value: "http://reddit-backend-local-service:80"
+              #  "http://reddit-backend-service:8000" 
           imagePullPolicy: Always
       restartPolicy: Always
 

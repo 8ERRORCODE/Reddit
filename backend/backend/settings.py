@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 from datetime import timedelta
 
@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-uf^q*^fh7&di10z$wr0lu+g05od6epzr3tp7h-8ho9xewt&66z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'reddit-backend-service', '185.220.227.204']
+ALLOWED_HOSTS = ["*", "185.220.227.196"]
 
 
 SIMPLE_JWT = {
@@ -140,7 +140,10 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+CORS_ALLOWED_ORIGINS = [
+    "http://reddit-frontend-service",  
+    "http://localhost:5173",          
+]
 CORS_ALLOW_ALL_ORIGINS = True
 
 MEDIA_URL = '/media/'
